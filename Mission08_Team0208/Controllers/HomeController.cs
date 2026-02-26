@@ -6,6 +6,11 @@ namespace Mission08_Team0208.Controllers
 {
     public class HomeController : Controller
     {
+
+        public IActionResult AddEdit()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
