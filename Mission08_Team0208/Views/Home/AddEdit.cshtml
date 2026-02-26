@@ -1,0 +1,74 @@
+@model Mission08_Team0208.Models.Task
+@* or whatever yall name the model cs file *@
+
+@{
+    ViewData["Title"] = "Add / Edit Task";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Add / Edit Task</h4>
+            </div>
+
+            <div class="card-body">
+
+                <form asp-action="AddEdit" method="post">
+
+                    <input type="hidden" asp-for="TaskId" />
+
+                    <!-- task -->
+                    <div class="mb-3">
+                        <label asp-for="TaskName" class="form-label">Task</label>
+                        <input asp-for="TaskName" class="form-control" required />
+                        <span asp-validation-for="TaskName" class="text-danger"></span>
+                    </div>
+
+                    <!-- due date -->
+                    <div class="mb-3">
+                        <label asp-for="DueDate" class="form-label">Due Date</label>
+                        <input asp-for="DueDate" type="date" class="form-control" />
+                    </div>
+
+                    <!-- quadrants -->
+                    <div class="mb-3">
+                        <label asp-for="Quadrant" class="form-label">Quadrant</label>
+                        <select asp-for="Quadrant" class="form-select" required>
+                            <option value="">Select Quadrant</option>
+                            <option value="1">Quadrant I - Important / Urgent</option>
+                            <option value="2">Quadrant II - Important / Not Urgent</option>
+                            <option value="3">Quadrant III - Not Important / Urgent</option>
+                            <option value="4">Quadrant IV - Not Important / Not Urgent</option>
+                        </select>
+                    </div>
+
+                    <!-- category -->
+                    <div class="mb-3">
+                        <label asp-for="CategoryId" class="form-label">Category</label>
+                        <select asp-for="CategoryId" class="form-select"
+                                asp-items="ViewBag.Categories">
+                            <option value="">Select Category</option>
+                        </select>
+                    </div>
+
+                    <!-- Completed -->
+                    <div class="form-check mb-3">
+                        <input asp-for="Completed" class="form-check-input" />
+                        <label asp-for="Completed" class="form-check-label">Completed</label>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-success">Save Task</button>
+                        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
