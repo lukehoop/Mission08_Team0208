@@ -11,20 +11,30 @@ namespace Mission08_Team0208.Controllers
         {
             return View();
         }
-        public IActionResult Index()
+
+        public IActionResult Delete()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Quadrants()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult Complete(int id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var task = _repo.Tasks
+            .FirstOrDefault(t => t.TaskId == id);
+
+            if (task != null)
+            {
+                task.Completed = true;
+                _repo.SaveChanges();
+            }
+
+            return RedirectToAction("Quadrants");
         }
     }
 }

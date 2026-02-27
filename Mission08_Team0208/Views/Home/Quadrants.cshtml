@@ -1,0 +1,201 @@
+@{
+    ViewData["Title"] = "Quadrants";
+}
+
+@model List<TaskItem>
+<div class="container">
+    <h1 class="mb-4">Quadrants</h1>
+
+    
+    @* QUADRANT 1*@
+    
+    @*Format the quadrant*@
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-header fw-bold">Q1: Important / Urgent</div>
+                <div class="card-body">
+                    
+                    @*Fill Quadrant with tasks*@
+                    @foreach (var t in Model.Where(t => t.Quadrant == 1 && !t.Completed)) // Check to see if it is not completed and belongs in this quadrant
+                    {
+                        <div class="border rounded p-2 mb-2">
+                            <div class="fw-semibold">@t.TaskName</div>
+
+
+                            @if (t.DueDate != null) // if there is a date here it will show in the quadrant
+                            {
+                                <div class="text-muted small">Due: @t.DueDate?.ToShortDateString()</div>
+                            }
+
+                            
+                            <div class="mt-2 d-flex gap-2">
+                                @*EDIT BUTTON*@
+                                <a asp-controller="Home" asp-action="Edit" asp-route-id="@t.TaskId"
+                                   class="btn btn-sm btn-outline-primary">Edit</a>
+
+                                @*DELETE BUTTON*@
+                                <a asp-controller="Home" asp-action="Delete" asp-route-id="@t.TaskId"
+                                   class="btn btn-sm btn-outline-danger">Delete</a>
+
+                                @*COMPLETE BUTTON*@
+                                <form asp-controller="Home" asp-action="Complete"
+                                      asp-route-id="@t.TaskId" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-success">Complete</button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+
+                    @if (!Model.Any(t => t.Quadrant == 1 && !t.Completed))
+                    {
+                        <p class="text-muted mb-0">No tasks.</p>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        
+        @*QUADRANT 2*@
+        
+        @*Format the quadrant*@
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-header fw-bold">Q2: Important / Not Urgent</div>
+                <div class="card-body">
+                    
+                    @*Fill the quadrant with the tasks*@
+                    @foreach (var t in Model.Where(t => t.Quadrant == 2 && !t.Completed)) // Check to see if it is not completed and belongs in this quadrant
+                    {
+                        <div class="border rounded p-2 mb-2">
+                            <div class="fw-semibold">@t.TaskName</div>
+
+                            @if (t.DueDate != null)
+                            {
+                                <div class="text-muted small">Due: @t.DueDate?.ToShortDateString()</div>
+                            }
+                            
+                            <div class="mt-2 d-flex gap-2">
+                                @*Edit BUTTON*@
+                                <a asp-controller="Home" asp-action="Edit" asp-route-id="@t.TaskId"
+                                   class="btn btn-sm btn-outline-primary">Edit</a>
+
+                                @*DELETE BUTTON*@
+                                <a asp-controller="Home" asp-action="Delete" asp-route-id="@t.TaskId"
+                                   class="btn btn-sm btn-outline-danger">Delete</a>
+
+                                @*COMPLETE BUTTON*@
+                                <form asp-controller="Home" asp-action="Complete"
+                                      asp-route-id="@t.TaskId" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-success">Complete</button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+
+                    @if (!Model.Any(t => t.Quadrant == 2 && !t.Completed))
+                    {
+                        <p class="text-muted mb-0">No tasks.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    @*QUADRANT 3*@
+    
+    @*Format the quadrant*@
+    <div class="row g-3"> 
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-header fw-bold">Q3: Not Important / Urgent</div>
+                <div class="card-body">
+                    
+                    @*Fill the quadrant with the task*@
+                    @foreach (var t in Model.Where(t => t.Quadrant == 3 && !t.Completed)) // Check to see if it is not completed and belongs in this quadrant
+                    {
+                        <div class="border rounded p-2 mb-2">
+                            <div class="fw-semibold">@t.TaskName</div>
+
+                            @if (t.DueDate != null)
+                            {
+                                <div class="text-muted small">Due: @t.DueDate?.ToShortDateString()</div>
+                            }
+                            
+                            <div class="mt-2 d-flex gap-2">
+                                @*EDIT BUTTON*@
+                                <a asp-controller="Home" asp-action="Edit" asp-route-id="@t.TaskId"
+                                   class="btn btn-sm btn-outline-primary">Edit</a>
+
+                                @*DELETE BUTTON*@
+                                <a asp-controller="Home" asp-action="Delete" asp-route-id="@t.TaskId"
+                                   class="btn btn-sm btn-outline-danger">Delete</a>
+
+                                @*COMPLETE BUTTON*@
+                                <form asp-controller="Home" asp-action="Complete"
+                                      asp-route-id="@t.TaskId" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-success">Complete</button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+
+                    @if (!Model.Any(t => t.Quadrant == 3 && !t.Completed))
+                    {
+                        <p class="text-muted mb-0">No tasks.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        
+        @* QUADRANT 4*@
+        
+        @*Format the quadrant*@
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-header fw-bold">Q4: Not Important / Not Urgent</div>
+                <div class="card-body">
+                    
+                    @*Fill the quadrant with task details*@
+                    @foreach (var t in Model.Where(t => t.Quadrant == 4 && !t.Completed)) // Check to see if it is not completed and belongs in this quadrant
+                    {
+                        <div class="border rounded p-2 mb-2">
+                            <div class="fw-semibold">@t.TaskName</div>
+
+                            @if (t.DueDate != null)
+                            {
+                                <div class="text-muted small">Due: @t.DueDate?.ToShortDateString()</div>
+                            }
+
+                            
+                            <div class="mt-2 d-flex gap-2">
+                                @*EDIT BUTTON*@
+                                <a asp-controller="Home" asp-action="Edit" asp-route-id="@t.TaskId"
+                                   class="btn btn-sm btn-outline-primary">Edit</a>
+
+                                @*DELETE BUTTON*@
+                                <a asp-controller="Home" asp-action="Delete" asp-route-id="@t.TaskId"
+                                   class="btn btn-sm btn-outline-danger">Delete</a>
+
+                                @*COMPLETE BUTTON*@
+                                <form asp-controller="Home" asp-action="Complete"
+                                      asp-route-id="@t.TaskId" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-success">Complete</button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+
+                    @if (!Model.Any(t => t.Quadrant == 4 && !t.Completed))
+                    {
+                        <p class="text-muted mb-0">No tasks.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
